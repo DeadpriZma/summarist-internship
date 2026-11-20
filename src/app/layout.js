@@ -1,5 +1,8 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import { LibraryProvider } from "./components/LibraryContext";
+import { PremiumProvider } from "@/context/PremiumContext";
+PremiumProvider
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -15,7 +18,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={roboto.className}>
-        {children}
+        <PremiumProvider>
+          <LibraryProvider>
+            {children}
+          </LibraryProvider>
+        </PremiumProvider>
       </body>
     </html>
   );

@@ -1,9 +1,13 @@
+"use client";
 import { AiFillFileText, AiFillBulb, AiFillAudio } from "react-icons/ai";
 
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 
 import { BiCrown } from "react-icons/bi";
 import { RiLeafLine } from "react-icons/ri";
+
+import { useState } from "react";
+import Modal from "./components/Modal";
 
 const features = [
   {
@@ -238,15 +242,20 @@ function SectionTitle({ children }) {
   );
 }
 
-function LoginButton() {
+function LoginButton({ onClick }) {
   return (
-    <button className="flex h-10 w-full min-w-[180px] max-w-[300px] items-center justify-center rounded bg-[#2bd97c] text-base text-[#032b41] transition-colors duration-200 hover:bg-[#20ba68] active:translate-y-px">
+    <button
+      className="flex h-10 w-full min-w-[180px] max-w-[300px] items-center justify-center rounded bg-[#2bd97c] text-base text-[#032b41] transition-colors duration-200 hover:bg-[#20ba68] active:translate-y-px"
+      onClick={onClick}
+    >
       Login
     </button>
   );
 }
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <main className="w-full overflow-x-hidden bg-white font-sans">
       {/* NAVBAR */}
@@ -261,7 +270,7 @@ export default function Home() {
           </figure>
 
           <ul className="flex gap-6 text-[#032b41]">
-            <li className="cursor-pointer transition-colors hover:text-[#2bd97c]">
+            <li className="cursor-pointer transition-colors hover:text-[#2bd97c]" onClick={() => setIsModalOpen(true)}> 
               Login
             </li>
             <li className="hidden cursor-not-allowed sm:block">About</li>
@@ -279,7 +288,7 @@ export default function Home() {
               <div className="flex w-full flex-col items-center text-center md:items-start md:text-left">
                 <div className="mb-6 text-2xl font-bold text-[#032b41] md:text-[40px]">
                   Gain more knowledge
-                  <br className="hidden md:block" />
+                  
                   in less time
                 </div>
 
@@ -291,7 +300,11 @@ export default function Home() {
                   and even people who don’t like to read.
                 </div>
 
-                <LoginButton />
+                <LoginButton onClick={() => setIsModalOpen(true)} />
+                <Modal
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(false)}
+                />
               </div>
 
               <figure className="hidden w-full justify-end md:flex">
@@ -381,7 +394,7 @@ export default function Home() {
             </div>
 
             <div className="flex justify-center">
-              <LoginButton />
+              <LoginButton onClick={() => setIsModalOpen(true)} />
             </div>
           </div>
         </div>
